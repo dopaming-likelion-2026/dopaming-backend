@@ -45,15 +45,15 @@ public class ShortformService {
 
         shortformRepository.save(shortform);
 
-        int todayUsageSeconds = getTodayUsageSeconds(user);                 // 오늘 숏폼 누적 사용 시간
-        int dailyLimit = user.getDailyLimit();                              // 사용자의 하루 숏폼 제한 시간
-        int remainingSeconds = Math.max(dailyLimit - todayUsageSeconds, 0); // 오늘 숏폼 남은 시간
+        int todayUsageSeconds = getTodayUsageSeconds(user);                         // 오늘 숏폼 누적 사용 시간
+        int dailyLimitSeconds = user.getDailyLimitSeconds();                        // 사용자의 하루 숏폼 제한 시간
+        int remainingSeconds = Math.max(dailyLimitSeconds - todayUsageSeconds, 0);  // 오늘 숏폼 남은 시간
 
         return ShortformUsageResponse.builder()
                 .todayUsageSeconds(todayUsageSeconds)
-                .dailyLimit(dailyLimit)
+                .dailyLimitSeconds(dailyLimitSeconds)
                 .remainingSeconds(remainingSeconds)
-                .status(calculateStatus(todayUsageSeconds, dailyLimit))
+                .status(calculateStatus(todayUsageSeconds, dailyLimitSeconds))
                 .build();
     }
 
@@ -61,18 +61,15 @@ public class ShortformService {
     public ShortformTodayResponse getTodayUsage(Long userId) {
         User user = getUser(userId);
 
-        int todayUsageSeconds = getTodayUsageSeconds(user);                 // 오늘 숏폼 누적 사용 시간
-        int dailyLimit = user.getDailyLimit();                              // 사용자의 하루 숏폼 제한 시간
-        int remainingSeconds = Math.max(dailyLimit - todayUsageSeconds, 0); // 오늘 숏폼 남은 시간
+        int todayUsageSeconds = getTodayUsageSeconds(user);                         // 오늘 숏폼 누적 사용 시간
+        int dailyLimitSeconds = user.getDailyLimitSeconds();                        // 사용자의 하루 숏폼 제한 시간
+        int remainingSeconds = Math.max(dailyLimitSeconds - todayUsageSeconds, 0);  // 오늘 숏폼 남은 시간
 
         return ShortformTodayResponse.builder()
                 .todayUsageSeconds(todayUsageSeconds)
-                .todayUsageMinutes(todayUsageSeconds / 60)
-                .dailyLimit(dailyLimit)
-                .dailyLimitMinutes(dailyLimit / 60)
+                .dailyLimitSeconds(dailyLimitSeconds)
                 .remainingSeconds(remainingSeconds)
-                .remainingMinutes(remainingSeconds / 60)
-                .status(calculateStatus(todayUsageSeconds, dailyLimit))
+                .status(calculateStatus(todayUsageSeconds, dailyLimitSeconds))
                 .build();
     }
 
@@ -81,8 +78,7 @@ public class ShortformService {
         User user = getUser(userId);
 
         return ShortformLimitResponse.builder()
-                .dailyLimit(user.getDailyLimit())
-                .dailyLimitMinutes(user.getDailyLimit() / 60)
+                .dailyLimitSeconds(user.getDailyLimitSeconds())
                 .build();
     }
 
@@ -91,11 +87,10 @@ public class ShortformService {
     public ShortformLimitResponse updateLimit(Long userId, ShortformLimitUpdateRequest request) {
         User user = getUser(userId);
 
-        user.updateDailyLimit(request.getDailyLimit());
+        user.updateDailyLimit(request.getDailyLimitSeconds());
 
         return ShortformLimitResponse.builder()
-                .dailyLimit(user.getDailyLimit())
-                .dailyLimitMinutes(user.getDailyLimit() / 60)
+                .dailyLimitSeconds(user.getDailyLimitSeconds())
                 .build();
     }
 
@@ -113,8 +108,8 @@ public class ShortformService {
     }
 
     // 오늘 누적 사용 시간이 하루 제한 시간 이상이면 제한 초과 상태로 판단한다.
-    private ShortformUsageStatus calculateStatus(int todayUsageSeconds, int dailyLimit) {
-        if (todayUsageSeconds >= dailyLimit) {
+    private ShortformUsageStatus calculateStatus(int todayUsageSeconds, int dailyLimitSeconds) {
+        if (todayUsageSeconds >= dailyLimitSeconds) {
             return ShortformUsageStatus.LIMIT_EXCEEDED;
         }
 

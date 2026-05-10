@@ -10,7 +10,7 @@ public class ShortformUsageResponse {
 
     private int todayUsageSeconds;
 
-    private int dailyLimit;
+    private int dailyLimitSeconds;
 
     private int remainingSeconds;
 

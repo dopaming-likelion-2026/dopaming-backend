@@ -10,15 +10,9 @@ public class ShortformTodayResponse {
 
     private int todayUsageSeconds;
 
-    private int todayUsageMinutes;
-
-    private int dailyLimit;
-
-    private int dailyLimitMinutes;
+    private int dailyLimitSeconds;
 
     private int remainingSeconds;
-
-    private int remainingMinutes;
 
     private ShortformUsageStatus status; // AVAILABLE, QUIZ_REQUIRED
 }

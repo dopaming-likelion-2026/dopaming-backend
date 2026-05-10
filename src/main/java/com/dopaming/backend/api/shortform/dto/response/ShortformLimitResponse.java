@@ -7,7 +7,5 @@ import lombok.Getter;
 @Builder
 public class ShortformLimitResponse {
 
-    private int dailyLimit;
-
-    private int dailyLimitMinutes;
+    private int dailyLimitSeconds;
 }

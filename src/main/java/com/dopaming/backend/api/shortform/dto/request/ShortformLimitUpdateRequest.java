@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class ShortformLimitUpdateRequest {
 
-    private int dailyLimit;
+    private int dailyLimitSeconds;
 }
