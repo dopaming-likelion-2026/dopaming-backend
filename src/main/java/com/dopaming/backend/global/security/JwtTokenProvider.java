@@ -1,4 +1,4 @@
-package com.dopaming.backend.security;
+package com.dopaming.backend.global.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

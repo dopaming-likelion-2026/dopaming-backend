@@ -1,5 +1,6 @@
-package com.dopaming.backend.security;
+package com.dopaming.backend.global.filter;
 
+import com.dopaming.backend.global.security.JwtTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

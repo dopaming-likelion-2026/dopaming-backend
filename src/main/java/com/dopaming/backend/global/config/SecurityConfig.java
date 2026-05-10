@@ -1,7 +1,7 @@
-package com.dopaming.backend.config;
+package com.dopaming.backend.global.config;
 
-import com.dopaming.backend.security.JwtAuthenticationFilter;
-import com.dopaming.backend.security.JwtTokenProvider;
+import com.dopaming.backend.global.filter.JwtAuthenticationFilter;
+import com.dopaming.backend.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

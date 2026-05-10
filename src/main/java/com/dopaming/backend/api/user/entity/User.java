@@ -1,4 +1,4 @@
-package com.dopaming.backend.entity;
+package com.dopaming.backend.api.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

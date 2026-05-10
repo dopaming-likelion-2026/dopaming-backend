@@ -1,6 +1,6 @@
-package com.dopaming.backend.repository;
+package com.dopaming.backend.api.user.repository;
 
-import com.dopaming.backend.entity.User;
+import com.dopaming.backend.api.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

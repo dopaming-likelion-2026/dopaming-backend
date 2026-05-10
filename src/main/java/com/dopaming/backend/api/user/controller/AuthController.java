@@ -1,9 +1,9 @@
-package com.dopaming.backend.controller;
+package com.dopaming.backend.api.user.controller;
 
-import com.dopaming.backend.dto.LoginRequest;
-import com.dopaming.backend.dto.SignupRequest;
-import com.dopaming.backend.dto.TokenRequest;
-import com.dopaming.backend.service.AuthService;
+import com.dopaming.backend.api.user.dto.LoginRequest;
+import com.dopaming.backend.api.user.dto.SignupRequest;
+import com.dopaming.backend.api.user.dto.TokenRequest;
+import com.dopaming.backend.api.user.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,11 @@
-package com.dopaming.backend.service;
+package com.dopaming.backend.api.user.service;
 
-import com.dopaming.backend.dto.LoginRequest;
-import com.dopaming.backend.dto.SignupRequest;
-import com.dopaming.backend.dto.TokenResponse;
-import com.dopaming.backend.entity.User;
-import com.dopaming.backend.repository.UserRepository;
-import com.dopaming.backend.security.JwtTokenProvider;
+import com.dopaming.backend.api.user.dto.LoginRequest;
+import com.dopaming.backend.api.user.dto.SignupRequest;
+import com.dopaming.backend.api.user.dto.TokenResponse;
+import com.dopaming.backend.api.user.entity.User;
+import com.dopaming.backend.api.user.repository.UserRepository;
+import com.dopaming.backend.global.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

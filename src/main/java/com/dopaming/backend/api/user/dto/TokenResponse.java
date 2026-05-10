@@ -1,4 +1,4 @@
-package com.dopaming.backend.dto;
+package com.dopaming.backend.api.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
