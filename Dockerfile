@@ -1,5 +1,5 @@
 # 빌드 환경 (Gradle 포함) 설정
-FROM gradle:8.5-jdk17 AS build
+FROM gradle:8.5-jdk21 AS build
 
 # 작업 디렉토리 설정
 WORKDIR /app
@@ -23,7 +23,7 @@ RUN chmod +x gradlew
 RUN ./gradlew clean bootJar -x test --no-daemon
 
 # 실행 환경 (경량 JDK) 설정
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
