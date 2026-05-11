@@ -18,11 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ShortformService {
+
+    // 한국 시간대
+    private static final ZoneId KOREA_ZONE = ZoneId.of("Asia/Seoul");
 
     private final ShortformRepository shortformRepository;
     private final DailyShortformRepository dailyShortformRepository;
@@ -35,12 +39,12 @@ public class ShortformService {
 
         validateUsageRequest(request);
 
-        LocalDate usageDate = request.getStartedAt().toLocalDate();
+        LocalDate today = LocalDate.now(KOREA_ZONE);
 
         Shortform shortform = Shortform.builder()
                 .user(user)
                 .platform(request.getPlatform())
-                .usageDate(usageDate)
+                .usageDate(today)
                 .startedAt(request.getStartedAt())
                 .endedAt(request.getEndedAt())
                 .durationSeconds(request.getDurationSeconds())
