@@ -1,5 +1,6 @@
 package com.dopaming.backend.api.shortform.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,5 +8,6 @@ import lombok.Getter;
 @Builder
 public class ShortformLimitResponse {
 
+    @Schema(description = "하루 숏폼 제한 시간, 초 단위", example = "3600")
     private int dailyLimitSeconds;
 }

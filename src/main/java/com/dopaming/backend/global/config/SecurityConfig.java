@@ -40,8 +40,19 @@ public class SecurityConfig {
 
                 // API 경로별 권한 설정
                 .authorizeHttpRequests(auth -> auth
+                        // Swagger
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**"
+                        ).permitAll()
                         // 명세서 기준 로그인, 회원가입, 중복확인, 토큰 재발급은 누구나 접근 가능
-                        .requestMatchers("/api/auth/signup", "/api/auth/login", "/api/auth/check-id", "/api/auth/refresh").permitAll()
+                        .requestMatchers(
+                                "/api/auth/signup",
+                                "/api/auth/login",
+                                "/api/auth/check-id",
+                                "/api/auth/refresh"
+                        ).permitAll()
                         // 그 외 나머지 요청(로그아웃 등)은 인증(토큰)이 필요함
                         .anyRequest().authenticated()
                 )
