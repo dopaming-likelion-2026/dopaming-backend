@@ -38,7 +38,8 @@ public class ShortformController {
         ));
     }
 
-    @Operation(summary = "오늘 사용 시간 조회", description = "로그인한 사용자의 오늘 숏폼 누적 사용 시간과 남은 제한 시간을 조회합니다.")    @GetMapping("/usage/today")
+    @Operation(summary = "오늘 사용 시간 조회", description = "로그인한 사용자의 오늘 숏폼 누적 사용 시간과 남은 제한 시간을 조회합니다.")
+    @GetMapping("/usage/today")
     public ResponseEntity<?> getTodayUsage(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -53,7 +54,8 @@ public class ShortformController {
         ));
     }
 
-    @Operation(summary = "하루 제한 시간 조회", description = "로그인한 사용자의 하루 숏폼 제한 시간을 초 단위로 조회합니다.")    @GetMapping("/limit")
+    @Operation(summary = "하루 제한 시간 조회", description = "로그인한 사용자의 하루 숏폼 제한 시간을 초 단위로 조회합니다.")
+    @GetMapping("/limit")
     public ResponseEntity<?> getLimit(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -68,7 +70,8 @@ public class ShortformController {
         ));
     }
 
-    @Operation(summary = "하루 제한 시간 변경", description = "로그인한 사용자의 하루 숏폼 제한 시간을 초 단위로 변경합니다.")    @PutMapping("/limit")
+    @Operation(summary = "하루 제한 시간 변경", description = "로그인한 사용자의 하루 숏폼 제한 시간을 초 단위로 변경합니다.")
+    @PutMapping("/limit")
     public ResponseEntity<?> updateLimit(
             @AuthenticationPrincipal CustomUserDetails userDetails,
             @RequestBody ShortformLimitUpdateRequest request
