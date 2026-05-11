@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// Shortform: 개별 사용 기록 저장
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
