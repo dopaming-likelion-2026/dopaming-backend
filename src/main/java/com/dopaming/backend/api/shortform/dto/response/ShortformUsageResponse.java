@@ -15,6 +15,12 @@ public class ShortformUsageResponse {
     @Schema(description = "하루 숏폼 제한 시간, 초 단위", example = "1800")
     private int dailyLimitSeconds;
 
+    @Schema(description = "퀴즈 정답으로 추가 허용된 시간, 초 단위", example = "300")
+    private int extraTimeSeconds;
+
+    @Schema(description = "오늘 총 숏폼 허용 시간, 초 단위", example = "2100")
+    private int totalAllowedSeconds;
+
     @Schema(description = "오늘 남은 숏폼 사용 가능 시간, 초 단위", example = "600")
     private int remainingSeconds;
 
