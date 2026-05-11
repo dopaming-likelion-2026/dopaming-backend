@@ -28,19 +28,24 @@ public class User {
     @Column(nullable = false, unique = true)
     private String nickname;
 
-    // ADDMINE 도파민 관리 기능을 위한 필드 (기본값 30개로 설정)
+    // ADDMINE 도파민 관리 기능을 위한 필드 (기본값 1800초 설정)
     @Column(nullable = false)
-    private int dailyLimit = 30;
+    private int dailyLimitSeconds = 1800; // =30분
 
     @Builder // 객체를 생성할 때 가독성 좋게 만들기 위한 롬복 어노테이션
-    public User(String loginId, String password, String name, String nickname, int dailyLimit) {
+    public User(String loginId, String password, String name, String nickname, int dailyLimitSeconds) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         // 값이 들어오면 그 값으로 세팅, 아니면 기본값 유지
-        if (dailyLimit > 0) {
-            this.dailyLimit = dailyLimit;
+        if (dailyLimitSeconds > 0) {
+            this.dailyLimitSeconds = dailyLimitSeconds;
         }
+    }
+
+    // 하루 제한 시간 변경
+    public void updateDailyLimit(int dailyLimitSeconds) {
+        this.dailyLimitSeconds = dailyLimitSeconds;
     }
 }
