@@ -40,7 +40,7 @@ public class SecurityConfig {
 
                 // API 경로별 권한 설정
                 .authorizeHttpRequests(auth -> auth
-                        // Swagger
+                        // Swagger UI 및 API 문서 접근 허용
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
