@@ -115,6 +115,18 @@ public class ShortformService {
                 .build();
     }
 
+    @Transactional
+    public void addExtraTime(Long userId) {
+        User user = getUser(userId);
+        LocalDate today = LocalDate.now(KOREA_ZONE);
+
+        // 오늘 자 통계 엔티티를 가져와서 300초 추가
+        DailyShortform dailyShortform = getOrCreateDailyShortform(user, today);
+        dailyShortform.addExtraTimeSeconds(300);
+
+        // @Transactional이 걸려 있어 별도의 save 호출 없이도 DB에 반영
+    }
+
     // 사용자 PK로 User 엔티티를 조회한다.
     private User getUser(Long userId) {
         return userRepository.findById(userId)
