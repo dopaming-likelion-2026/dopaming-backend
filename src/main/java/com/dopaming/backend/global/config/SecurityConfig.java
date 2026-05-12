@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 인증 없이 접근 가능한 API
                         .requestMatchers(
+                                // 로그인, 회원가입, 중복확인, 토큰 재발급 접근 허용
                                 "/api/auth/signup",
                                 "/api/auth/login",
                                 "/api/auth/check-id",

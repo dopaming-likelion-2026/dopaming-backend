@@ -4,6 +4,9 @@ import com.dopaming.backend.api.user.dto.LoginRequest;
 import com.dopaming.backend.api.user.dto.SignupRequest;
 import com.dopaming.backend.api.user.dto.TokenRequest;
 import com.dopaming.backend.api.user.service.AuthService;
+// Swagger 어노테이션 추가
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Tag(name = "Auth", description = "인증(로그인, 회원가입 등) 관련 API")
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -18,7 +22,7 @@ public class AuthController {
 
     private final AuthService authService;
 
-    // 1. 아이디 중복 확인
+    @Operation(summary = "아이디 중복 확인", description = "입력한 로그인 아이디가 이미 사용 중인지 확인합니다.")
     @GetMapping("/check-id")
     public ResponseEntity<?> checkId(@RequestParam("loginId") String loginId) {
         boolean isAvailable = authService.checkIdAvailable(loginId);
@@ -39,7 +43,7 @@ public class AuthController {
         }
     }
 
-    // 2. 회원가입
+    @Operation(summary = "회원가입", description = "새로운 사용자를 등록합니다.")
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody SignupRequest request) {
         var responseData = authService.signup(request);
@@ -50,7 +54,7 @@ public class AuthController {
         ));
     }
 
-    // 3. 로그인
+    @Operation(summary = "로그인", description = "아이디와 비밀번호로 로그인하여 토큰을 발급받습니다.")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         var tokenData = authService.login(request);
@@ -61,7 +65,7 @@ public class AuthController {
         ));
     }
 
-    // 4. 토큰 재발급
+    @Operation(summary = "토큰 재발급", description = "Refresh Token을 사용하여 새로운 Access Token과 Refresh Token을 발급받습니다.")
     @PostMapping("/refresh")
     public ResponseEntity<?> refresh(@RequestBody TokenRequest request) {
         var newTokenData = authService.reissueToken(request.getRefreshToken());
@@ -72,10 +76,9 @@ public class AuthController {
         ));
     }
 
-    // 5. 로그아웃
+    @Operation(summary = "로그아웃", description = "현재 사용자의 Access Token을 무효화하여 로그아웃 처리합니다.")
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String accessToken) {
-        // 실제 운영에서는 Redis 등을 활용해 토큰을 블랙리스트에 등록하는 로직이 들어갑니다.
         authService.logout(accessToken);
         return ResponseEntity.ok(Map.of(
                 "status", "success",
