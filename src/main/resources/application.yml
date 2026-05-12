@@ -2,39 +2,40 @@ spring:
   application:
     name: backend
 
-  # ???? ??
+  # 실행 프로필 설정
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}   # ?? ?? ???? (application-local.yml ??)
+    active: ${SPRING_PROFILES_ACTIVE:local}   # 기본값은 local 프로필 사용
 
   docker:
     compose:
       enabled: false
 
-  # JPA ??
+  # JPA 설정
   jpa:
     hibernate:
-      ddl-auto: update            # ?? ? ??
+      ddl-auto: update            # 엔티티 변경 사항을 DB 스키마에 반영
     properties:
       hibernate:
-        format_sql: true          # ??? DB ?? ?? ? ???
+        format_sql: true          # SQL 로그를 보기 좋게 출력
     open-in-view: false
 
-# ?????? ?? ??
+# 서버 설정
 server:
+  address: 0.0.0.0
   port: 8080
   forward-headers-strategy: framework
 
-# Spring Actuator ??
+# Spring Actuator 설정
 management:
   endpoints:
     web:
       exposure:
-        include: health     # health? ?? ?? (?????)
+        include: health     # health 엔드포인트만 외부에 노출
   endpoint:
     health:
       show-details: always
 
-# Spring Docs (Swagger UI) ??
+# Spring Docs 및 Swagger UI 설정
 springdoc:
   api-docs:
     path: /v3/api-docs
