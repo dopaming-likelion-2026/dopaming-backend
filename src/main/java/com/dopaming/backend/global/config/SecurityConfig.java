@@ -2,9 +2,11 @@ package com.dopaming.backend.global.config;
 
 import com.dopaming.backend.global.filter.JwtAuthenticationFilter;
 import com.dopaming.backend.global.security.JwtTokenProvider;
+import jakarta.servlet.DispatcherType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -44,10 +46,19 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
                 // JWT 기반 인증에서는 서버 세션을 사용하지 않는다.
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
 
                 // API 경로별 접근 권한을 설정한다.
                 .authorizeHttpRequests(auth -> auth
+                        // 에러 처리 경로 허용
+                        .dispatcherTypeMatchers(DispatcherType.ERROR, DispatcherType.FORWARD).permitAll()
+                        .requestMatchers("/error").permitAll()
+
+                        // CORS preflight 요청 허용
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         // 인증 없이 접근 가능한 API
                         .requestMatchers(
                                 // 로그인, 회원가입, 중복확인, 토큰 재발급 접근 허용
@@ -83,10 +94,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // 프론트엔드 로컬 개발 주소와 배포 주소를 허용한다.
-        // 프론트 배포 후 실제 도메인을 아래 목록에 추가해야 한다.
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:8081",
-                "https://프론트엔드-배포주소.com" // 배포 후 수정
+                "https://dopaming-fe.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
