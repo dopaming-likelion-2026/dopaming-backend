@@ -94,10 +94,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // 프론트엔드 로컬 개발 주소와 배포 주소를 허용한다.
-        // 프론트 배포 후 실제 도메인을 아래 목록에 추가해야 한다.
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:8081",
-                "https://프론트엔드-배포주소.com" // 배포 후 수정
+                "https://dopaming-fe.vercel.app"
         ));
 
         configuration.setAllowedMethods(List.of(
